@@ -101,11 +101,13 @@ int recv_from_ae(int client_socket, BYTE *recv_buffer, int recv_len)
 	{
 		printf("Receive Data From Server Failed\n");
 		return FALSE;
-	}else if(length < recv_len)
+	}
+	else if(length < recv_len)
 	{
 		printf("Receive data from server less than required.\n");
 		return FALSE;
-	}else if(length > recv_len)
+	}
+	else if(length > recv_len)
 	{
 		printf("Receive data from server more than required.\n");
 		return FALSE;
@@ -156,8 +158,8 @@ BOOL writeCertFile(int userID, BYTE buf[], int len)
 	if (userID == 0)
 		sprintf(certname, "./cacert/cacert.pem");
 	else
-		sprintf(certname, "./cert/usercert%d.pem", userID);
-
+		//sprintf(certname, "./cert/usercert%d.pem", userID);
+		sprintf(certname, "./cert/nvrreceive.pem");
 	//printf("cert file name: %s\n", certname);
 
 	fp = fopen(certname, "w");
@@ -482,7 +484,7 @@ int HandleWAPIProtocolAuthActive(int user_ID, auth_active *auth_active_packet)
 	//write ae cert into cert file
 	//printf("write ae cert into cert file:\n");
 	int ae_ID = 2;
-	writeCertFile(ae_ID, (BYTE *)auth_active_packet->certificatestaae.cer_X509, (int)auth_active_packet->certificatestaae.cer_length);
+	//writeCertFile(ae_ID, (BYTE *)auth_active_packet->certificatestaae.cer_X509, (int)auth_active_packet->certificatestaae.cer_length);
 
 	//verify sign of AE
 	//printf("verify sign of AE:\n");
@@ -628,6 +630,7 @@ int ProcessWAPIProtocolAccessAuthRequest(int user_ID,auth_active *auth_active_pa
 	if (!fill_access_auth_requ_packet(user_ID,auth_active_packet, access_auth_requ_packet))
 	{
 		printf("fill access auth request packet failed!\n");
+		exit(0);
 	}
 	else
 		printf("摄像机封装【接入认证请求分组】成功！准备发往网络硬盘录像机！\n");
