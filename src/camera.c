@@ -686,7 +686,8 @@ int HandleWAPIProtocolAccessAuthResp(int user_ID, access_auth_requ *access_auth_
 	//verify access result
 	if(access_auth_resp_packet->accessresult != 0)
 	{
-		printf("verity access result failed.\n");
+//		printf("verity access result failed.\n");
+		printf("接入认证结果为失败!!!\n");
 		return FALSE;
 	}
 	else
@@ -815,7 +816,7 @@ void ProcessWAPIProtocol(int new_ae_socket)
 
 	if(HandleWAPIProtocolAccessAuthResp(user_ID, &access_auth_requ_packet, &access_auth_resp_packet) == FALSE)
 	{
-		printf("Authentication failed!!\n");
+//		printf("Authentication failed!!\n");
 		exit(1);
 	}
 	else
